@@ -315,7 +315,7 @@ var controller = {
     },
 
 
-    paginator_: function(objs, prev_key, next_key) {
+    paginator_: function(path, objs, prev_key, next_key) {
 
         var o = {
             prev_link: null,
@@ -323,19 +323,19 @@ var controller = {
         };
                     // TODO remove hardcoded paths
         if(prev_key !== null) {
-            o.prev_link = '/#browse/' + prev_key;
+            o.prev_link = path+'/' + prev_key;
         } 
         if(next_key !== null) {
-            o.next_link = '/#browse/' + next_key;
+            o.next_link = path+'/' + next_key;
         }
         return this._render('paginator_', null, o);
     },
 
     // sub-templates end with and underscore
-    object_table_: function(objs, prev_key, next_key) {
+    object_table_: function(path, objs, prev_key, next_key) {
 
         var o = {
-            paginator: this.paginator_(objs, prev_key, next_key),
+            paginator: this.paginator_(path, objs, prev_key, next_key),
             objs: objs
         };
 
@@ -392,7 +392,7 @@ var controller = {
             }
 
             var o = {
-                object_table: this.object_table_(objs, prevkey, nextkey)
+                object_table: this.object_table_('#browse', objs, prevkey, nextkey)
             };
 
             var events = {

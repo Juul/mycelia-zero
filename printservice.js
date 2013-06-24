@@ -14,6 +14,19 @@ var path = require('path');
 var util = require('util');
 var zero = require('./zero.js').initialize(true);
 
+var name = "Mycelia Zero printservice";
+var version = '0.0.1';
+
+if(process.argv[2] == '-h') {
+    process.stderr.write("Usage: "+process.argv[1]+" [--purge]\n\n");
+    process.stderr.write("  --purge: Moves all png files in the to_print dir to the printed dir\n           without printing and then continues to listen for new\n           png files normally.\n\n");
+    process.stderr.write("  -v: Print version info and exit.\n");
+    process.stderr.write("  -h: Print this help screen.\n\n");
+    process.exit(0);
+} else if(process.argv[2] == '-v') {
+    process.stderr.write(name+" version "+version+"\n");
+    process.exit(0);
+}
 
 function print(filename) {
 
@@ -39,15 +52,33 @@ function print(filename) {
     });
 }
 
-var files = fs.readdirSync(zero.config.label_out_dir);
-var i;
-for(i=0; i < files.length; i++) {
-    if(!files[i].match(/.*\.png$/)) {
-        continue;
-    }
-    print(files[i]);
-}
+if(process.argv[2] != '--purge') {
 
+    var files = fs.readdirSync(zero.config.label_out_dir);
+    if(files.length > 0) {
+        console.log("Printing existing files.");
+        var i;
+        for(i=0; i < files.length; i++) {
+            if(!files[i].match(/.*\.png$/)) {
+                continue;
+            }
+            print(files[i]);
+        }
+    }
+} else {
+    var files = fs.readdirSync(zero.config.label_out_dir);
+    if(files.length > 0) {
+        console.log("Purging existing files.");
+        var i;
+        for(i=0; i < files.length; i++) {
+            if(!files[i].match(/.*\.png$/)) {
+                continue;
+            }
+            fs.renameSync(path.join(zero.config.label_out_dir, files[i]), path.join(zero.config.label_in_dir, files[i]));
+            console.log("Purged " + files[i]);
+        }
+    }
+}
 console.log("Listening for new png files in: " + zero.config.label_out_dir);
 
 var last_renamed = null;
