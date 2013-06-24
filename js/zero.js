@@ -13,6 +13,10 @@ var zero = {
         short_base_url: 'ven.li/',
     },
 
+    go: function(anchor) {
+        window.location.href = '#'+anchor;
+    },
+
     short_url: function(id) {
         if(!id) {
             return this.config.short_base_url+'?'

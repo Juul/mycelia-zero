@@ -17,7 +17,7 @@ var zero = module.exports = {
         var decoded = new Buffer(encoded_data, 'base64');
 
         // TODO non-static file path
-        var filepath = path.join(this.config.label_dir, filename);
+        var filepath = path.join(this.config.label_out_dir, filename);
         
         fs.writeFile(filepath, decoded, function(err) {
             if(err) {
@@ -53,10 +53,10 @@ var zero = module.exports = {
 
         this.printer.print(device, png_filepath, paper_type, threshold, function(err) {
             if(err) {
-                console.log("Print failed: " + err);
+                callback(err);
                 return;
             }
-            console.log("Printed!");
+            callback(null);
         });        
         
     },

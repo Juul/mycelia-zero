@@ -3,8 +3,24 @@ var fs = require('fs');
 var path = require('path');
 var PNG = require('pngjs').PNG;
 
-
-
+/*
+ * Brother QL-570 thermal printing module
+ * It prints a mono PNG image directly to the printers block device
+ *
+ * Copyright 2013 Marc Juul <juul@labitat.dk>
+ * Copyright 2011 Asbjørn Sloth Tønnesen <code@asbjorn.it>
+ *
+ * This software is BSD licensed.
+ *
+ * TODO
+ * The code is currently inefficient with memory 
+ * as it uses one javascript Number per pixel
+ * in the conversion process, though 1 bit per pixel
+ * would suffice (but require more cpu time).
+ * This isn't as bad as it sounds, since the input PNG
+ * is usually in 32 bit per pixel RGBA format.
+ *
+ */
 
 var ql570 = module.exports = {
 
@@ -97,6 +113,7 @@ var ql570 = module.exports = {
     write_buffer_to_printer: function(path) {
         var fd = fs.openSync(path, 'w');
         fs.writeSync(fd, this.buf, 0, this.bytes);
+        fs.closeSync(fd);
     },
 
 

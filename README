@@ -1,1 +1,15 @@
 This is a work in progress. Not yet ready for developer release.
+
+No automatic installation of dependencies yet.
+
+Hook up a Brother QL-570 thermal label printer.
+
+Edit config file: config.js
+
+Start webserver: ./server.js
+
+Start print service: ./printservice.js
+
+Browse to http://localhost:3000/
+
+If you don't want to use the print service (e.g. during development), you can bypass it by setting config.printer.direct = true, in config.js.

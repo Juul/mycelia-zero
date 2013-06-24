@@ -268,9 +268,14 @@ var controller = {
                         console.log("Error: " + response.msg);
                         return;
                     }
-                    // TODO some kind of response
+
                     console.log("Label saved and printed and document created");
                     
+                    // TODO some kind of flash notification
+
+                    console.log('view/'+doc._id);
+                    zero.go('view/'+doc._id);
+
                 }.bind(this));
             }.bind(this),
 
