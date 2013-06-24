@@ -1,6 +1,9 @@
-<h2><%= name %></h2>
+<h2><%= doc.name %></h2>
 <p>
-  <img src="<%- barcode_filepath %>" /> 
+  <%= doc.desc %>
+</p>
+<p>
+  <img width="336" height="174" src="<%- barcode_filepath %>" /> 
 </p>
 <div class="well" style="text-align: right;">
         <a href="<%- wiki_link %>" class="btn">Wiki</a>

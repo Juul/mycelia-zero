@@ -75,6 +75,14 @@ app.post('/login', express.bodyParser(), function(req, res, next) {
     res.send({error: "Login failed: " + err});
 });
 
+// get a label image
+app.get('/label/:filename', function(req, res) {
+
+    res.setHeader('Content-Type', 'image/png');
+    res.sendfile(path.join(zero.config.label_in_dir, req.params.filename));
+
+});
+
 // create a label
 app.post('/create', express.bodyParser(), function(req, res) {
 

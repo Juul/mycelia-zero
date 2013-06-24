@@ -12,6 +12,8 @@ var config = module.exports = {
         paper: 'w', // 'w' for wide paper, 'n' for narrow
         threshold: 180, // For conversion to monochrome. Any pixel less than this (on a scale from 0-255) is converted to white. Higher or equals becomes black.
     },
+
+    // TODO hrm, the naming of these variables kinda sucks
     label_out_dir: path.join(__dirname, 'labels/to_print'),
     label_in_dir: path.join(__dirname, 'labels/printed')
     

@@ -300,10 +300,10 @@ var controller = {
             // TODO how do we handle errors?
 
             var o =  {
-                name: doc.name,
+                doc: doc,
                 wiki_link: 'http://sudoroom.org/wiki',
                 edit_link: 'http://sudoroom.org',
-                barcode_filepath: '/img/qr_placeholder.png'
+                barcode_filepath: '/label/'+id+'.png'
             };
             
             var events = {
