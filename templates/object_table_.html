@@ -1,0 +1,22 @@
+
+<%= paginator %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Tags</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% _.each(objs, function(obj) { %>
+    <tr>
+      <td><a href="#view/<%- obj._id %>"><%= obj.name || 'Unnamed' %></a></td>
+      <td><a href="#view/<%- obj._id %>"><%= obj.description || '' %></a></td>
+      <td><a href="#view/<%- obj._id %>"><%= obj.tags || '' %></a></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%= paginator %>

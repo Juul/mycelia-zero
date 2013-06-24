@@ -1,0 +1,15 @@
+<div class="pagination">
+  <ul>
+    <% if(prev_link) { %>
+       <li class="even">
+         <a href="<%- prev_link %>">previous page</a>
+       </li>
+    <% } %>
+
+    <% if(next_link) { %>
+       <li class="even">
+         <a href="<%- next_link %>">next page</a>
+       </li>
+    <% } %>
+  </ul>
+</div>
