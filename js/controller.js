@@ -316,7 +316,6 @@ var controller = {
 
 
     paginator_: function(path, objs, prev_key, next_key) {
-
         var o = {
             prev_link: null,
             next_link: null
@@ -344,9 +343,39 @@ var controller = {
 
     // TODO hmm, not the best place to keep state info
     browse_history: [], // startkeys of previous pages
+    browse_history_track: function(startkey) {
+
+        var prevkey = null;
+        // TODO this whole history tracking is kinda ugly
+        // can we do something better?
+        if(this.browse_history.length > 0) {
+            // this is a "browse to prev", so pop a key
+            if(this.browse_history[this.browse_history.length-2] == startkey) {
+                this.browse_history.pop();
+            } else {
+                this.browse_history.push(startkey);
+            }
+        } else {
+            this.browse_history.push(startkey);
+        }
+        
+        if(!startkey) {
+            this.browse_history = [];
+        }
+        
+        if(this.browse_history.length > 1) {
+            prevkey = this.browse_history[this.browse_history.length-2];
+        }
+        
+        // allow going back to first page
+        if(startkey && !prevkey) {
+            prevkey = '';
+        }
+        return prevkey;
+    },
 
     browse: function(startkey) {
-           
+        console.log('startkey: ' + startkey);
         var query = {
             startkey: startkey || undefined,
             limit: this.config.objs_per_page + 1
@@ -355,7 +384,6 @@ var controller = {
         // fetch objects and render table
         $.get('/objects', query, function(data) {
             
-            var prevkey = null;
             var nextkey = null;
             if(data.rows.length > this.config.objs_per_page) {
                 nextkey = data.rows.pop().key;
@@ -365,43 +393,13 @@ var controller = {
                 return row.value;
             });
 
-            // TODO this whole history tracking is kinda ugly
-            // can we do something better?
-            if(this.browse_history.length > 0) {
-                // this is a "browse to prev", so pop a key
-                if(this.browse_history[this.browse_history.length-2] == startkey) {
-                    this.browse_history.pop();
-                } else {
-                    this.browse_history.push(data.rows[0].key);
-                }
-            } else {
-                this.browse_history.push(data.rows[0].key);
-            }
-
-            if(!startkey) {
-                this.browse_history = [];
-            }
-
-            if(this.browse_history.length > 1) {
-                prevkey = this.browse_history[this.browse_history.length-2];
-            }
-
-            // allow going back to first page
-            if(startkey && !prevkey) {
-                prevkey = '';
-            }
-
+            var prevkey = this.browse_history_track(startkey);
+            
             var o = {
                 object_table: this.object_table_('#browse', objs, prevkey, nextkey)
             };
 
-            var events = {
-                
-            };
-
-
-
-	          this._render('browse', '#content', o, events);
+	          this._render('browse', '#content', o, {});
         }.bind(this));        
 
     },

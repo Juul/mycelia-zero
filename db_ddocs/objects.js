@@ -5,7 +5,7 @@ module.exports = {
             map: function(doc) { 
                 if(doc.type == 'object') {
 //                    emit(doc.last_changed_time, doc);
-                    emit(doc.name, doc);
+                    emit(doc.name+'-'+doc._id, doc);
                 }
             }
         }
