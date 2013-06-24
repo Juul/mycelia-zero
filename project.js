@@ -212,11 +212,17 @@ var Project = module.exports = {
 
         // get all objects
         this.objects = function(opts, callback) {
+            if(!opts.view) {
+                callback("Tried to fetch objects without specifying view");
+                return;
+            }
+            var view = 'objects/'+opts.view;
             opts = {
                 startkey: opts.startkey,
                 limit: parseInt(opts.limit)
             };
-            this.db.query('objects/all', opts, function(err, response) {
+
+            this.db.query(view, opts, function(err, response) {
                 if(err) {
                     callback(err);
                     return;

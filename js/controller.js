@@ -374,9 +374,11 @@ var controller = {
         return prevkey;
     },
 
-    browse: function(startkey) {
-        console.log('startkey: ' + startkey);
+    _browse: function(startkey, view, controller) {
+        controller = controller || 'browse';
+
         var query = {
+            view: view || 'by_name',
             startkey: startkey || undefined,
             limit: this.config.objs_per_page + 1
         };
@@ -396,12 +398,19 @@ var controller = {
             var prevkey = this.browse_history_track(startkey);
             
             var o = {
-                object_table: this.object_table_('#browse', objs, prevkey, nextkey)
+                object_table: this.object_table_('#'+controller, objs, prevkey, nextkey)
             };
 
-	          this._render('browse', '#content', o, {});
+	          this._render(controller, '#content', o, {});
         }.bind(this));        
+    },
 
+    browse: function(startkey) {
+        this._browse(startkey, 'by_name', 'browse');
+    },
+
+    recent: function(startkey) {
+        this._browse(startkey, 'recent', 'recent');
     },
 
     login: function() {

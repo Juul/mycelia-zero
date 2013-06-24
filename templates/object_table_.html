@@ -6,7 +6,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>Tags</th>
-      <th>&nbsp;</th>
+      <th>Created</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +15,7 @@
       <td><a href="#view/<%- obj._id %>"><%= obj.name || 'Unnamed' %></a></td>
       <td><a href="#view/<%- obj._id %>"><%= obj.description || '' %></a></td>
       <td><a href="#view/<%- obj._id %>"><%= obj.tags || '' %></a></td>
+      <td><a href="#view/<%- obj._id %>"><%= obj.created_time || '' %></a></td>
     </tr>
     <% }) %>
   </tbody>

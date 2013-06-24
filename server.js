@@ -110,6 +110,7 @@ app.post('/create', express.bodyParser(), function(req, res) {
 
 
 app.get('/objects', express.bodyParser(), function(req, res) {
+    // TODO insecure letting req.query decide view
     zero.project.objects(req.query, function(err, rows) {
         if(err) {
             res.send({error: 'objects_fail', msg: "Could not get objects: " + err});
