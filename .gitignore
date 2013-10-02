@@ -6,3 +6,6 @@
 auto-save-list
 tramp
 .\#*
+
+node_modules
+project-zero
