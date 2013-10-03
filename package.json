@@ -1,0 +1,27 @@
+{
+  "name": "mycelia-zero",
+  "version": "0.0.0",
+  "description": "myceliza zero is a project, inventory and skill tracking system for hackerspaces",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Juul/mycelia-zero.git"
+  },
+  "author": "Marc Juul <juul@labitat.dk>",
+  "license": "???",
+  "bugs": {
+    "url": "https://github.com/Juul/mycelia-zero/issues"
+  },
+  "dependencies": {
+    "express": "~3.4.0",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "pouchdb": "0.0.14",
+    "pngjs": "~0.4.0",
+    "html": "0.0.7"
+  }
+}
